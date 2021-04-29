@@ -10,8 +10,8 @@ The pipeline involves the following processes:
 * [BCL2fastq](https://sapac.support.illumina.com/sequencing/sequencing_software/bcl2fastq-conversion-software.html): Convert Illumina BCL files to FastQ
 * [STAR](https://github.com/alexdobin/STAR): Align RNA-sequences to a reference genome using STAR aligner
 * Deduplication: Remove PCR duplicates from aligned BAMs
-  * [Umi-tools](https://github.com/CGATOxford/UMI-tools)
-  * [Sambamba](https://github.com/biod/sambamba)
+  * [Umi-tools](https://github.com/CGATOxford/UMI-tools): If sequence data contains UMIs
+  * [Sambamba](https://github.com/biod/sambamba): For non-UMI data
 * [FeatureCounts](http://subread.sourceforge.net/): Quantify reads to genomic positions (genes, exons, promoters etc...)
 
 ## Set up
