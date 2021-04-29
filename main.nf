@@ -38,14 +38,34 @@ workflow {
   // Workflows
   include { BCL2FASTQ } from './workflows/bcl2fastq' params(checked_arg_map)
   include { RNASEQ } from './workflows/rnaseq' params(checked_arg_map)
+  //   include { DEMULTIPLEX } from './workflows/demultiplex' params(checked_arg_map)
 
-  if(checked_arg_map.csvtype == 'illumina') {
+  // SAGC sequencing run
+  if (checked_arg_map.path_bcl) {
+
     BCL2FASTQ()
-    BCL2FASTQ.out.bcl2fq.set { reads }
+    BCL2FASTQ.out.bcl2fq_reads.set { reads }
+    BCL2FASTQ.out.bcl2fq_stats.set { stats }
+
+    // // Bulk RNAseq - UMI in R1 and reads in R2
+    // if(checked_arg_map.multiplex) {
+    //   BCL2FASTQ()
+    //   DEMULTIPLEX(BCL2FASTQ.out.bcl2fq)
+    //   DEMULTIPLEX.out.sabre.set { reads }
+    
+    // // Normal sequencing run - paired or single with/without umi
+    // } else {
+    //    BCL2FASTQ()
+    //    BCL2FASTQ.out.bcl2fq_reads.set { reads }
+    //    BCL2FASTQ.out.bcl2fq_stats.set { stats }
+    // }
+  
+  // Custom dataset
   } else {
     Channel.empty().set { reads } // Only needed if BCL2FASTQ not being used
   }
-  
+
+  // RNA-seq sub-workflow
   RNASEQ(reads)
 
 }
