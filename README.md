@@ -46,7 +46,7 @@ to clone the repository to your system.
 
 ```{shell}
 $ cd <path>/software
-$ git clone https://github.com/sagc-bioinformatics/nf-rnaseq-sagc.git
+$ git clone --recurse-submodules https://github.com/sagc-bioinformatics/nf-rnaseq-sagc.git
 ```
 
 ## Usage
